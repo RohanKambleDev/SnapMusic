@@ -24,9 +24,13 @@ class AppServiceProvider extends ServiceProvider
     {
         // ini_set('upload_max_filesize', '50M');
         // ini_set('post_max_size', '50M');
+        ini_set('max_execution_time', 300);
+
 
         // Set the maximum execution time to unlimited
         set_time_limit(0); // or set_time_limit(300); for 5 minutes
+
+        putenv('PATH=' . getenv('PATH') . ':/opt/homebrew/bin');
 
     }
 }
