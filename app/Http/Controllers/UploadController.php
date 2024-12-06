@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Upload;
 use Illuminate\Http\Request;
+use App\Services\YoutubeService;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
@@ -27,15 +28,33 @@ class UploadController extends Controller
      */
     public function handleUpload(Request $request)
     {
-        // Validate the request
-        $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:10240', // max 10MB
-            'audio' => 'required|mimetypes:audio/mpeg,audio/wav,audio/mp3|max:50000', // max 50MB
-        ]);
+        log::debug($request->all());
 
-        // Store the uploaded files
+        // Validate the request based on whether it's a direct upload or YouTube URL
+        if ($request->has('youtube_url') && $request->filled('youtube_url')) {
+            $request->validate([
+                'image' => 'required|image|mimes:jpeg,png,jpg|max:10240', // max 10MB
+                'youtube_url' => 'required|url',
+            ]);
+
+            // Use YouTube service to get audio
+            $youtubeService = new YoutubeService();
+            $audioPath = $youtubeService->downloadAndConvertToAudio(
+                $request->youtube_url,
+                10 // Default duration in seconds
+            );
+        } else {
+            $request->validate([
+                'image' => 'required|image|mimes:jpeg,png,jpg|max:10240', // max 10MB
+                'audio' => 'required|mimetypes:audio/mpeg,audio/wav,audio/mp3|max:50000', // max 50MB
+            ]);
+
+            // Store the uploaded audio file
+            $audioPath = $request->file('audio')->store('uploads/audio');
+        }
+
+        // Store the uploaded image
         $imagePath = $request->file('image')->store('uploads/images');
-        $audioPath = $request->file('audio')->store('uploads/audio');
 
         Log::debug('$imagePath', [$imagePath]);
         Log::debug('$audioPath', [$audioPath]);

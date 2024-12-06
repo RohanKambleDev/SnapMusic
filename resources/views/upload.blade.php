@@ -31,11 +31,33 @@
                 <input type="file" name="image" id="image" required
                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-300">
             </div>
+            <div class="space-y-2">
+                <label class="block text-lg font-medium text-indigo-700 mb-1">Audio Source:</label>
+                <div class="flex space-x-4">
+                    <label class="inline-flex items-center">
+                        <input type="radio" name="audio_source" value="file" checked
+                            class="form-radio text-indigo-600" onchange="toggleAudioSource()">
+                        <span class="ml-2">Upload Audio File</span>
+                    </label>
+                    <label class="inline-flex items-center">
+                        <input type="radio" name="audio_source" value="youtube"
+                            class="form-radio text-indigo-600" onchange="toggleAudioSource()">
+                        <span class="ml-2">YouTube URL</span>
+                    </label>
+                </div>
+            </div>
 
-            <div>
+            <div id="audio-file-input">
                 <label for="audio" class="block text-lg font-medium text-indigo-700 mb-1">Choose Audio:</label>
-                <input type="file" name="audio" id="audio" required
+                <input type="file" name="audio" id="audio"
                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-300">
+            </div>
+
+            <div id="youtube-url-input" class="hidden">
+                <label for="youtube_url" class="block text-lg font-medium text-indigo-700 mb-1">YouTube URL:</label>
+                <input type="url" name="youtube_url" id="youtube_url"
+                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                    placeholder="https://www.youtube.com/watch?v=...">
             </div>
 
             <button type="submit"
@@ -44,6 +66,27 @@
             </button>
         </form>
     </div>
+
+    <script>
+    function toggleAudioSource() {
+        const audioFileInput = document.getElementById('audio-file-input');
+        const youtubeUrlInput = document.getElementById('youtube-url-input');
+        const audioFile = document.getElementById('audio');
+        const youtubeUrl = document.getElementById('youtube_url');
+
+        if (document.querySelector('input[name="audio_source"]:checked').value === 'file') {
+            audioFileInput.classList.remove('hidden');
+            youtubeUrlInput.classList.add('hidden');
+            audioFile.required = true;
+            youtubeUrl.required = false;
+        } else {
+            audioFileInput.classList.add('hidden');
+            youtubeUrlInput.classList.remove('hidden');
+            audioFile.required = false;
+            youtubeUrl.required = true;
+        }
+    }
+    </script>
 </body>
 
 </html>
