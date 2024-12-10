@@ -74,7 +74,7 @@ class YoutubeService
     // }
 
 
-    public function downloadAndConvertToAudio(string $youtubeUrl, int $duration = 30): string
+    public function downloadAndConvertToAudio(string $youtubeUrl, string $start, string $end): string
     {
         $tempFile = storage_path('app/uploads/temp/') . Str::random(40) . '.mp3';
         $audioFile = storage_path('app/uploads/audio/') . Str::random(40) . '.mp3';
@@ -90,7 +90,7 @@ class YoutubeService
         Log::info($youtubeUrl);
 
         // Build yt-dlp command
-        $downloadCommand = "/opt/homebrew/bin/yt-dlp -f 'bestaudio[ext=m4a]' --extract-audio --audio-format mp3 --audio-quality 0 --download-sections '*00:00-00:{$duration}' -o {$tempFile} {$youtubeUrl}";
+        $downloadCommand = "/opt/homebrew/bin/yt-dlp -f 'bestaudio[ext=m4a]' --extract-audio --audio-format mp3 --audio-quality 0 --download-sections '*{$start}-{$end}' -o {$tempFile} {$youtubeUrl}";
         // exec($downloadCommand, $output, $status);
 
         // Log::debug('Download command:', [$downloadCommand]);

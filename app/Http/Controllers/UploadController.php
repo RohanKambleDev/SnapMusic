@@ -41,7 +41,8 @@ class UploadController extends Controller
             $youtubeService = new YoutubeService();
             $audioPath = $youtubeService->downloadAndConvertToAudio(
                 $request->youtube_url,
-                10 // Default duration in seconds
+                $request->youtube_start_time, // start time
+                $request->youtube_end_time // end time
             );
         } else {
             $request->validate([

@@ -31,6 +31,7 @@
                 <input type="file" name="image" id="image" required
                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-300">
             </div>
+
             <div class="space-y-2">
                 <label class="block text-lg font-medium text-indigo-700 mb-1">Audio Source:</label>
                 <div class="flex space-x-4">
@@ -58,7 +59,32 @@
                 <input type="url" name="youtube_url" id="youtube_url"
                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-300"
                     placeholder="https://www.youtube.com/watch?v=...">
+
+                <div class="mt-4 flex space-x-4 items-end">
+                    <div class="flex-1">
+                        <label for="youtube_start_time" class="block text-lg font-medium text-indigo-700 mb-1">
+                            Start Time:
+                        </label>
+                        <input type="text" name="youtube_start_time" id="youtube_start_time"
+                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                            placeholder="e.g. 1:30">
+                    </div>
+
+                    <div class="flex-1">
+                        <label for="youtube_end_time" class="block text-lg font-medium text-indigo-700 mb-1">
+                            End Time:
+                        </label>
+                        <input type="text" name="youtube_end_time" id="youtube_end_time"
+                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                            placeholder="e.g. 2:00">
+                    </div>
+                </div>
+
+                <p class="text-sm text-gray-600 mt-2">
+                    Enter times in a mm:ss format (e.g. 1:30 for one minute thirty seconds).
+                </p>
             </div>
+
 
             <button type="submit"
                 class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-all transform hover:scale-105">
@@ -73,17 +99,23 @@
         const youtubeUrlInput = document.getElementById('youtube-url-input');
         const audioFile = document.getElementById('audio');
         const youtubeUrl = document.getElementById('youtube_url');
+        const youtubeStartTime = document.getElementById('youtube_start_time');
+        const youtubeEndTime = document.getElementById('youtube_end_time');
 
         if (document.querySelector('input[name="audio_source"]:checked').value === 'file') {
             audioFileInput.classList.remove('hidden');
             youtubeUrlInput.classList.add('hidden');
             audioFile.required = true;
             youtubeUrl.required = false;
+            youtubeStartTime.required = false;
+            youtubeEndTime.required = false;
         } else {
             audioFileInput.classList.add('hidden');
             youtubeUrlInput.classList.remove('hidden');
             audioFile.required = false;
             youtubeUrl.required = true;
+            youtubeStartTime.required = true;
+            youtubeEndTime.required = true;
         }
     }
     </script>
