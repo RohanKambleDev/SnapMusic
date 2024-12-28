@@ -89,6 +89,4 @@ class UploadController extends Controller
         // Redirect with a success message and the link to download the file
         return redirect('/')->with('success', 'Files have been successfully combined!')->with('output', $outputPath);
     }
-
-
 }

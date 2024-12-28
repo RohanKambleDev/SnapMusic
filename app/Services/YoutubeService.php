@@ -90,7 +90,8 @@ class YoutubeService
         Log::info($youtubeUrl);
 
         // Build yt-dlp command
-        $downloadCommand = "/opt/homebrew/bin/yt-dlp -f 'bestaudio[ext=m4a]' --extract-audio --audio-format mp3 --audio-quality 0 --download-sections '*{$start}-{$end}' -o {$tempFile} {$youtubeUrl}";
+        // $downloadCommand = "/opt/homebrew/bin/yt-dlp -f 'bestaudio[ext=m4a]' --extract-audio --audio-format mp3 --audio-quality 0 --download-sections '*{$start}-{$end}' -o {$tempFile} {$youtubeUrl}";
+        $downloadCommand = "/opt/homebrew/bin/yt-dlp -x --audio-format mp3 --download-sections *{$start}-{$end} -o {$tempFile} {$youtubeUrl}";
         // exec($downloadCommand, $output, $status);
 
         // Log::debug('Download command:', [$downloadCommand]);
@@ -134,5 +135,4 @@ class YoutubeService
         // Return path relative to storage
         return "uploads/audio/" . basename($audioFile);
     }
-
 }

@@ -67,7 +67,7 @@
                         </label>
                         <input type="text" name="youtube_start_time" id="youtube_start_time"
                             class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-300"
-                            placeholder="e.g. 1:30">
+                            placeholder="e.g. 1:30" value="1:00">
                     </div>
 
                     <div class="flex-1">
@@ -76,7 +76,7 @@
                         </label>
                         <input type="text" name="youtube_end_time" id="youtube_end_time"
                             class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-300"
-                            placeholder="e.g. 2:00">
+                            placeholder="e.g. 2:00" value="1:30">
                     </div>
                 </div>
 
