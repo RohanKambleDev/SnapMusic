@@ -94,7 +94,7 @@ class YoutubeService
         $downloadCommand = "/opt/homebrew/bin/yt-dlp -x --audio-format mp3 --download-sections *{$start}-{$end} -o {$tempFile} {$youtubeUrl}";
         // exec($downloadCommand, $output, $status);
 
-        // Log::debug('Download command:', [$downloadCommand]);
+        Log::debug('Download command:', [$downloadCommand]);
         // Log::debug('yt-dlp output:', $output);
         // Log::debug('yt-dlp status:', [$status]);
 
